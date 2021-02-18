@@ -1,0 +1,96 @@
+
+import groovy.io.FileType
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+def isMavenUpload() {
+    return hasProperty('NEXUS_USERNAME') && hasProperty('NEXUS_PASSWORD')
+}
+
+@SuppressWarnings("GrMethodMayBeStatic")
+def useCentralNexus() {
+    def useCentral = USE_CENTRAL_NEXUS
+    return useCentral.equalsIgnoreCase("true")
+}
+
+def getReleaseRepositoryUrl() {
+    return hasProperty('RELEASE_REPOSITORY_CENTRAL_NEXUS_URL') ? RELEASE_REPOSITORY_CENTRAL_NEXUS_URL : ""
+}
+
+def getSnapshotRepositoryUrl() {
+    return hasProperty('SNAPSHOT_REPOSITORY_CENTRAL_NEXUS_URL') ? SNAPSHOT_REPOSITORY_CENTRAL_NEXUS_URL : ""
+}
+
+def getRepositoryUsername() {
+    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+}
+
+static def getProjectRootDirectory() {
+    if (hasBuildScriptDir()) {
+        return System.getProperty("user.dir") + "/"
+    } else {
+        return System.getProperty("user.dir") + "/../"
+    }
+}
+
+
+
+signing {
+    sign configurations.archives
+}
+
+group = "io.github.dalpengida"
+archivesBaseName = "repo-test"
+version = "1.0.0"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+            }
+
+            pom.project {
+                name 'repo-test'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'repo-test'
+                url 'http://www.example.com/example-application'
+
+                scm {
+                    connection 'scm:git:git://github.com/dalpengida/repo-t.git'
+                    developerConnection 'scm:git:git://github.com/dalpengida/repo-t.git'
+                    url 'https://github.com/dalpengida/repo-t'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'Brielle'
+                        name 'Brielle'
+                        email 'Brielle'
+                    }
+                }
+            }
+        }
+    }
+}
+

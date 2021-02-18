@@ -1,0 +1,28 @@
+This is a revocation certificate for the OpenPGP key:
+
+             NHN GamePlatformClient Team <dl_platformsdk_all@nhn.com>
+ Fingerprint: 05F944E5195EEEED59141409E492D36C2D1BCE17
+
+A revocation certificate is a kind of "kill switch" to publicly
+declare that a key shall not anymore be used.  It is not possible
+to retract such a revocation certificate once it has been published.
+
+Use it to revoke this key in case of a compromise or loss of
+the secret key.
+
+To avoid an accidental use of this file, a colon has been inserted
+before the 5 dashes below.  Remove this colon with a text editor
+before importing and publishing this revocation certificate.
+
+:-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: This is a revocation certificate
+
+iQE2BCABCAAgFiEEBflE5Rle7u1ZFBQJ5JLTbC0bzhcFAlzBjdYCHQAACgkQ5JLT
+bC0bzhcL5ggAnvthSsSoRbN4F7kKGxZ4bGjYg43HQl110R4swdlnC3Mr8dR6wt3T
+AWUEhtcJMmN4Omcb0/tmodZigMEeUIE2iRyV2xLJS7GlHfObHrGyuzzcOWDkp+S/
+WqLecoKEJPumLVaoApSyugxwsQb/AP6YtEfLbwsfx6xs4ej5umYa6ngdkwbGCGZa
+qDtwLaKbhhCalDSI8dwLKvCbYK8H8h/W7hNtqIUVAqo+O5fYPs39l4vqLUyoi6PK
+LaqgMMWW3k+khrjbkdkE8HpkK98prZxOxNwGhiW3TqtK1N8XXWBZ/WIbwQNHLTEb
+qFJSSdVNftTnN+ARb7DkGg04bMDxoNtDGg==
+=wcYo
+-----END PGP PUBLIC KEY BLOCK-----

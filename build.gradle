@@ -1,0 +1,56 @@
+/*
+ * © NHN Corp. All rights reserved.
+ * NHN Corp. PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.dalpengida.repo-t'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$GRADLE_TOOL_VERSION"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:2.1"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        mavenCentral()
+        maven { url 'http://repo.nhnent.com/content/repositories/snapshots' }
+        maven { url 'http://repo.nhnent.com/content/repositories/releases' }
+    }
+
+
+}
+
+// SNAPSHOT 빌드명을 TimeStamp로 변환할 때 시간이 변하지 않도록 하기 위한 변수를 RootProject에 선언.
+rootProject.ext.buildStartedTime = null
+rootProject.ext {
+    compileSdkVersion = 30
+    targetSdkVersion = 30
+    minSdkVersion = 15
+}
+
+//apply from: rootProject.file('gradle-maven-push.gradle')
+
+
+
